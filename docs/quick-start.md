@@ -36,6 +36,11 @@ This is a guided sequence that chains the examples into a working demo.
 - Set `hosted_zone_id` and `record_name`
 - For API Gateway custom domains, use the alias option
 
+## 7b) (Optional) Add a custom domain + base path mapping
+- Go to `examples/api-gateway-custom-domain/`
+- Provide the REST API ID, stage name, certificate ARN, and hosted zone ID
+- Apply and validate the custom domain
+
 ## 8) Validate
 - Call `GET /hello` on the API endpoint
 - Check Lambda logs in CloudWatch

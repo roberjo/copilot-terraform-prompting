@@ -122,3 +122,18 @@ Use an alias block and disable evaluate_target_health.
 Why it helps:
 - Mirrors how API Gateway custom domains are typically wired.
 - Shows the difference between standard A records and alias records.
+
+## 9) Custom domain + base path mapping
+**Goal:** Attach a custom domain to a REST API and map it to a stage.
+
+Prompt:
+"""
+Create a custom domain for an API Gateway REST API using an ACM certificate.
+Create a base path mapping to stage \"prod\" (empty base path).
+Create a Route 53 alias record pointing the domain to API Gateway.
+Use variables for domain_name, certificate_arn, rest_api_id, stage_name, hosted_zone_id.
+"""
+
+Why it helps:
+- Shows how production APIs get friendly URLs.
+- Demonstrates domain mapping and DNS wiring.

@@ -112,3 +112,16 @@ Use an alias block and disable evaluate_target_health.
 Expected output:
 - `aws_route53_record` using an alias block
 - Variables for alias name + zone ID
+
+## 9) Custom domain + base path mapping (optional)
+Prompt:
+"""
+Create a custom domain for an API Gateway REST API using an ACM certificate.
+Add a base path mapping to stage \"prod\" and a Route 53 alias record.
+Assume the REST API ID and hosted zone ID are provided as variables.
+"""
+
+Expected output:
+- `aws_api_gateway_domain_name` with REGIONAL endpoint
+- `aws_api_gateway_base_path_mapping` to the API stage
+- Route 53 alias record pointing to the API Gateway domain

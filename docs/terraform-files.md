@@ -81,11 +81,31 @@ Terraform builds a graph from references. When one resource uses another (e.g., 
 - `aws_api_gateway_deployment`: Publishes the API to a stage
 - `aws_lambda_permission`: Lets API Gateway invoke Lambda
 
+## API Gateway stages (why they matter)
+
+### What a stage is
+- **Definition:** A stage is a named snapshot of your REST API deployment (for example, `dev`, `staging`, `prod`).
+- **How it works:** When you deploy a REST API, API Gateway creates a deployment and exposes it under a stage name.
+
+### Why stages are important
+- **Environment separation:** Different stages can point to different backends or configs.
+- **Safe releases:** You can test changes in a non-prod stage before promoting.
+- **Stable URLs:** The stage name becomes part of the invoke URL, making environments easy to distinguish.
+
+### How stages are managed in Terraform
+- In REST APIs, `aws_api_gateway_deployment` publishes the API and creates/updates the stage.
+- Changing resources or methods typically requires a new deployment to update the stage.
+
 ### Security group example
 - `aws_security_group`: Firewall rules for VPC resources
 
 ### Route 53 example
 - `aws_route53_record`: DNS record (standard or alias)
+
+### API Gateway custom domain example
+- `aws_api_gateway_domain_name`: Custom domain for the API
+- `aws_api_gateway_base_path_mapping`: Maps the domain (and optional base path) to an API stage
+- `aws_route53_record`: Alias record pointing the domain to API Gateway
 
 ## Tips for beginners
 - Start with one resource and apply.

@@ -7,6 +7,7 @@ This folder will contain minimal, focused Terraform examples for each in-scope A
 - `iam/`
 - `lambda/`
 - `api-gateway/`
+- `api-gateway-custom-domain/`
 - `security-groups/`
 - `route53-a-record/`
 - `full-stack/` (end-to-end demo)
