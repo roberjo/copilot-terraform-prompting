@@ -11,5 +11,6 @@ This folder will contain minimal, focused Terraform examples for each in-scope A
 - `security-groups/`
 - `route53-a-record/`
 - `full-stack/` (end-to-end demo)
+- `modules/` (basic modularization example)
 
 See `examples/examples-index.md` for a short description of each example.

@@ -10,3 +10,4 @@ Use these minimal examples to learn one resource at a time. Each folder contains
 - `examples/security-groups/`: Basic security group for HTTPS
 - `examples/route53-a-record/`: A record or alias for API Gateway custom domains
 - `examples/full-stack/`: End-to-end scaffold for the demo
+- `examples/modules/`: Basic modularization example (S3 module)
