@@ -91,3 +91,41 @@ Terraform builds a graph from references. When one resource uses another (e.g., 
 - Use outputs to pass values to the next example.
 - Keep names consistent with `project_name` and `environment`.
 - Read the comments in each `main.tf` for the why behind each resource.
+
+## Terraform state (technical overview)
+
+### What state is
+- **Definition:** A state file is Terraform’s record of what it believes exists in your infrastructure, including resource IDs and metadata.
+- **Why it matters:** Terraform uses state to map your configuration to real-world resources and to calculate what must change.
+
+### How state works
+- When you run `apply`, Terraform updates state with the real IDs returned by the provider.
+- When you run `plan`, Terraform compares your configuration + current state to live infrastructure.
+- State is stored locally by default, or remotely in Terraform Cloud when configured.
+
+### Why state is important
+- **Resource tracking:** Without state, Terraform cannot tell if a resource already exists.
+- **Dependency ordering:** Terraform uses state references to create resources in the correct order.
+- **Change detection:** Terraform plans changes by diffing config/state/live data.
+
+### What drift is
+- **Definition:** Drift occurs when real infrastructure changes outside of Terraform.
+- **Common causes:** Manual console changes, CI jobs, or other tools modifying resources.
+
+### How drift is detected
+- During `plan`, Terraform refreshes data from the provider to see the current live values.
+- If the live values differ from state/config, Terraform reports differences in the plan output.
+
+### Core commands
+
+#### `terraform init`
+- **What it does:** Downloads provider plugins, initializes backend, and sets up the working directory.
+- **Why it matters:** No Terraform actions work until `init` has successfully prepared the environment.
+
+#### `terraform plan`
+- **What it does:** Calculates the proposed changes without making them.
+- **Why it matters:** It is the safe review step to validate what will be created, modified, or destroyed.
+
+#### `terraform apply`
+- **What it does:** Executes the plan and updates state with the real resource IDs.
+- **Why it matters:** It is the only step that changes infrastructure.
