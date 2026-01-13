@@ -33,6 +33,11 @@ This example creates a REST API and integrates it with an existing Lambda functi
 - **What it does:** Grants API Gateway permission to invoke the Lambda function.
 - **Why it is needed:** Lambda is locked down by default; this permission is required for API Gateway to call it.
 
+## API Gateway stages (quick overview)
+- **What it is:** A named snapshot of your REST API deployment (e.g., `dev`, `prod`).
+- **How it works:** The stage is created when you deploy the API and becomes part of the invoke URL.
+- **Why it matters:** Stages let you separate environments and safely test changes before prod.
+
 ## How to use
 1) Provide `lambda_arn` from the Lambda example.
 2) Optionally set `stage_name` (default is `prod`).

@@ -51,5 +51,10 @@ The guide should assume the users are new to the concepts of AWS resources, new 
 - Security Groups
 - Route 53 DNS A records
 
+## API Gateway stages (quick overview)
+- A stage is a named snapshot of your REST API deployment (e.g., `dev`, `prod`).
+- REST APIs are callable only after a deployment publishes them to a stage.
+- Stage names appear in the invoke URL, making environments easy to distinguish.
+
 ## Prompt library
 See `docs/prompt-library.md` for beginner-friendly prompts with explanations.
