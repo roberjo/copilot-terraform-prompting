@@ -10,11 +10,21 @@ This guide explains the common Terraform file pieces you will see in this projec
 
 ### `variables.tf`
 - **What it is:** Definitions for input variables (e.g., `project_name`, `environment`).
-- **Why it matters:** Variables make your configuration reusable and keep hard-coded values out of resources.
+- **Why it matters:** Variables make your configuration reusable and keep hard-coded values out of resources. They also centralize inputs so beginners can change settings in one place.
 
 ### `outputs.tf`
 - **What it is:** Named values exposed after `apply` (e.g., API endpoint, bucket name).
 - **Why it matters:** Outputs make it easy to pass values between steps or modules.
+
+## Other common Terraform blocks
+
+### `locals`
+- **What it is:** A way to define calculated values inside a configuration.
+- **Why it matters:** Locals reduce repetition and keep complex expressions readable (for example, building a standardized resource name).
+
+### `data` sources
+- **What it is:** Read-only lookups of existing infrastructure (for example, a VPC ID or an AMI).
+- **Why it matters:** Data sources let you reference resources that were not created in the current configuration.
 
 ## Required blocks (what you see in each example)
 
@@ -24,7 +34,11 @@ This guide explains the common Terraform file pieces you will see in this projec
 
 ### `provider` block
 - **What it does:** Configures the AWS provider (region, credentials).
-- **Why it is needed:** Resources are tied to a provider; without it, Terraform cannot talk to AWS.
+- **Why it is needed:** Resources are tied to a provider; without it, Terraform cannot talk to AWS. It also defines defaults like region and tags.
+
+### Provider version locking
+- **What it is:** Pinning providers to a known version range (e.g., `>= 5.0.0`).
+- **Why it matters:** Providers change behavior over time. Locking prevents unexpected breaking changes during demos or training.
 
 ### `backend` (Terraform Cloud)
 - **What it does:** Stores state remotely in Terraform Cloud workspaces.
