@@ -76,18 +76,18 @@ Expected output:
 - Lambda permission for API Gateway
 - Output with API endpoint
 
-## 6) Security group (optional)
+## 6) Custom domain + base path mapping (optional)
 Prompt:
 """
-Create a security group named "${project_name}-${environment}-sg".
-Allow inbound HTTPS (443) from the internet and all outbound.
-Use a VPC ID variable called vpc_id.
+Create a custom domain for an API Gateway REST API using an ACM certificate.
+Add a base path mapping to stage \"prod\" and a Route 53 alias record.
+Assume the REST API ID and hosted zone ID are provided as variables.
 """
 
 Expected output:
-- Security group with inbound 443 rule
-- Egress rule allowing all outbound
-- Variable for `vpc_id`
+- `aws_api_gateway_domain_name` with REGIONAL endpoint
+- `aws_api_gateway_base_path_mapping` to the API stage
+- Route 53 alias record pointing to the API Gateway domain
 
 ## 7) Route 53 standard A record
 Prompt:
@@ -113,15 +113,15 @@ Expected output:
 - `aws_route53_record` using an alias block
 - Variables for alias name + zone ID
 
-## 9) Custom domain + base path mapping (optional)
+## 9) Security group (optional)
 Prompt:
 """
-Create a custom domain for an API Gateway REST API using an ACM certificate.
-Add a base path mapping to stage \"prod\" and a Route 53 alias record.
-Assume the REST API ID and hosted zone ID are provided as variables.
+Create a security group named "${project_name}-${environment}-sg".
+Allow inbound HTTPS (443) from the internet and all outbound.
+Use a VPC ID variable called vpc_id.
 """
 
 Expected output:
-- `aws_api_gateway_domain_name` with REGIONAL endpoint
-- `aws_api_gateway_base_path_mapping` to the API stage
-- Route 53 alias record pointing to the API Gateway domain
+- Security group with inbound 443 rule
+- Egress rule allowing all outbound
+- Variable for `vpc_id`

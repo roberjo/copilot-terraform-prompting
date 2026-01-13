@@ -13,6 +13,7 @@
 - Create the base AWS provider + backend
 - S3 + IAM
 - Lambda + API Gateway
+- Custom domain + base path mapping (optional)
 - Security Groups
 - Route 53 A record
 

@@ -10,7 +10,7 @@ This is a guided sequence that chains the examples into a working demo.
 ## 2) Create the S3 bucket
 - Go to `examples/s3/`
 - Set `project_name` and `environment`
-- Apply and copy the `bucket_name` output
+- Apply and copy the `bucket_name` and `bucket_arn` outputs
 
 ## 3) Create the IAM role
 - Go to `examples/iam/`
@@ -31,16 +31,21 @@ This is a guided sequence that chains the examples into a working demo.
 - Set `project_name`, `environment`, and `lambda_arn`
 - Apply and copy the `api_endpoint` output
 
-## 7) (Optional) Add Route 53 DNS
-- Go to `examples/route53-a-record/`
-- Set `hosted_zone_id` and `record_name`
-- For API Gateway custom domains, use the alias option
-
-## 7b) (Optional) Add a custom domain + base path mapping
+## 7) (Optional) Add a custom domain + base path mapping
 - Go to `examples/api-gateway-custom-domain/`
 - Provide the REST API ID, stage name, certificate ARN, and hosted zone ID
 - Apply and validate the custom domain
 
-## 8) Validate
+## 8) (Optional) Add Route 53 DNS
+- Go to `examples/route53-a-record/`
+- Set `hosted_zone_id` and `record_name`
+- For API Gateway custom domains, use the alias option
+
+## 9) (Optional) Add Security Groups
+- Go to `examples/security-groups/`
+- Set `project_name`, `environment`, and `vpc_id`
+- Apply and copy the `security_group_id` output
+
+## 10) Validate
 - Call `GET /hello` on the API endpoint
 - Check Lambda logs in CloudWatch

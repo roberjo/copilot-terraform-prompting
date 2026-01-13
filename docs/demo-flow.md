@@ -13,8 +13,8 @@
 5) Add Security Group(s) for any networked resources
 6) (Optional) Add custom domain + base path mapping
 7) Add Route 53 A record pointing to the API Gateway custom domain (if used)
-7) Run a plan/apply via Terraform Cloud
-8) Validate output (invoke API, check logs)
+8) Run a plan/apply via Terraform Cloud
+9) Validate output (invoke API, check logs)
 
 ## Wrap-up prompts
 - “What changes if we add a second environment?”

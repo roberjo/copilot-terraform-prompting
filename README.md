@@ -22,6 +22,7 @@ This guide will be a short tutorial on using prompting in github copilot to gene
    - IAM: `examples/iam/`
    - Lambda: `examples/lambda/`
    - API Gateway: `examples/api-gateway/`
+   - Custom domain + base path mapping: `examples/api-gateway-custom-domain/`
    - Security Groups: `examples/security-groups/`
    - Route 53 A record: `examples/route53-a-record/`
 5) Use the end-to-end scaffold when ready: `examples/full-stack/`
