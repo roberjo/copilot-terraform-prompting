@@ -19,3 +19,9 @@ variable "lambda_zip_path" {
   description = "Path to the Lambda deployment zip file."
   default     = "lambda.zip"
 }
+
+variable "stage_name" {
+  type        = string
+  description = "Stage name for the REST API deployment."
+  default     = "prod"
+}

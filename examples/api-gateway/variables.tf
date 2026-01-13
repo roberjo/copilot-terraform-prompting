@@ -12,3 +12,9 @@ variable "lambda_arn" {
   type        = string
   description = "ARN of the Lambda function to integrate."
 }
+
+variable "stage_name" {
+  type        = string
+  description = "Stage name for the REST API deployment."
+  default     = "prod"
+}

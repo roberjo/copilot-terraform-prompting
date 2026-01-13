@@ -9,6 +9,6 @@ output "lambda_function_name" {
 }
 
 output "api_endpoint" {
-  description = "Base URL of the HTTP API."
-  value       = aws_apigatewayv2_api.http_api.api_endpoint
+  description = "Base URL of the REST API stage."
+  value       = aws_api_gateway_deployment.api.invoke_url
 }

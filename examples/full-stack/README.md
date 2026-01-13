@@ -3,7 +3,7 @@
 This example outlines how to wire the pieces together. It is a scaffold meant for the live demo.
 
 ## Planned structure
-- `main.tf`: provider, backend, and resources
+- `main.tf`: provider, backend, and resources (REST API + Lambda)
 - `variables.tf`: shared variables
 - `outputs.tf`: primary outputs (bucket, lambda, api endpoint)
 

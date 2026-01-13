@@ -26,7 +26,7 @@ This is a guided sequence that chains the examples into a working demo.
 - Set `project_name`, `environment`, and `role_arn`
 - Apply and copy the `lambda_function_arn` output
 
-## 6) Create the HTTP API
+## 6) Create the REST API
 - Go to `examples/api-gateway/`
 - Set `project_name`, `environment`, and `lambda_arn`
 - Apply and copy the `api_endpoint` output

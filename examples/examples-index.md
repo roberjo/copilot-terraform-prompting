@@ -5,7 +5,7 @@ Use these minimal examples to learn one resource at a time. Each folder contains
 - `examples/s3/`: S3 bucket with versioning
 - `examples/iam/`: IAM role and policy for Lambda
 - `examples/lambda/`: Lambda function using a local zip
-- `examples/api-gateway/`: HTTP API and Lambda integration
+- `examples/api-gateway/`: REST API and Lambda integration
 - `examples/security-groups/`: Basic security group for HTTPS
 - `examples/route53-a-record/`: A record or alias for API Gateway custom domains
 - `examples/full-stack/`: End-to-end scaffold for the demo

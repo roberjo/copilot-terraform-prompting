@@ -9,7 +9,7 @@
 1) Open `README.md` and review scope + assumptions
 2) Generate base Terraform: provider, backend, variables
 3) Add S3 bucket + IAM role/policy
-4) Add Lambda function + API Gateway integration
+4) Add Lambda function + REST API Gateway integration
 5) Add Security Group(s) for any networked resources
 6) Add Route 53 A record pointing to the API Gateway custom domain (if used)
 7) Run a plan/apply via Terraform Cloud

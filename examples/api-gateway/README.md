@@ -1,29 +1,33 @@
 # API Gateway Example
 
-This example creates an HTTP API and integrates it with an existing Lambda function.
+This example creates a REST API and integrates it with an existing Lambda function.
 
 ## Files
-- `main.tf`: API Gateway + integration + route + stage + permission
-- `variables.tf`: project_name, environment, lambda_arn
+- `main.tf`: REST API + resource + method + integration + deployment + permission
+- `variables.tf`: project_name, environment, lambda_arn, stage_name
 - `outputs.tf`: API endpoint
 
 ## What each resource does (and why it exists)
 
-### `aws_apigatewayv2_api`
-- **What it does:** Creates an API Gateway HTTP API container.
-- **Why it is needed:** It is the top-level API object that holds routes, integrations, and stages.
+### `aws_api_gateway_rest_api`
+- **What it does:** Creates an API Gateway REST API container.
+- **Why it is needed:** It is the top-level API object that holds resources, methods, and integrations.
 
-### `aws_apigatewayv2_integration`
-- **What it does:** Connects the HTTP API to the Lambda function using an AWS proxy integration.
+### `aws_api_gateway_resource`
+- **What it does:** Defines a path under the API root (for example, `/hello`).
+- **Why it is needed:** REST APIs require explicit resources for each path.
+
+### `aws_api_gateway_method`
+- **What it does:** Attaches an HTTP method (GET) to the `/hello` resource.
+- **Why it is needed:** Methods are the entry points that clients call.
+
+### `aws_api_gateway_integration`
+- **What it does:** Connects the method to Lambda using a proxy integration.
 - **Why it is needed:** This is the link that tells API Gateway which backend to invoke.
 
-### `aws_apigatewayv2_route`
-- **What it does:** Defines an HTTP method + path (e.g., `GET /hello`) that maps to the integration.
-- **Why it is needed:** Without a route, the API has no endpoints to call.
-
-### `aws_apigatewayv2_stage`
-- **What it does:** Creates the `$default` stage and enables auto-deploy.
-- **Why it is needed:** Stages are how API Gateway publishes your routes so they can be called.
+### `aws_api_gateway_deployment`
+- **What it does:** Packages the API configuration and publishes it to a stage.
+- **Why it is needed:** REST APIs must be deployed before they are callable.
 
 ### `aws_lambda_permission`
 - **What it does:** Grants API Gateway permission to invoke the Lambda function.
@@ -31,4 +35,5 @@ This example creates an HTTP API and integrates it with an existing Lambda funct
 
 ## How to use
 1) Provide `lambda_arn` from the Lambda example.
-2) Run `terraform init` and `terraform apply`.
+2) Optionally set `stage_name` (default is `prod`).
+3) Run `terraform init` and `terraform apply`.

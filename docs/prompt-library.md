@@ -65,12 +65,14 @@ Why it helps:
 - Sets up outputs for downstream resources.
 
 ## 5) API Gateway integration
-**Goal:** Create an HTTP API and connect it to Lambda.
+**Goal:** Create a REST API and connect it to Lambda.
 
 Prompt:
 """
-Create an API Gateway HTTP API that integrates with the Lambda function.
-Add a route for GET /hello.
+Create an API Gateway REST API that integrates with the Lambda function.
+Add a resource /hello and a GET method.
+Use a Lambda proxy integration.
+Deploy the API to a stage named \"prod\".
 Grant API Gateway permission to invoke the Lambda.
 Output the API endpoint.
 """

@@ -15,44 +15,51 @@ provider "aws" {
   region = "us-east-1"
 }
 
-resource "aws_apigatewayv2_api" "http_api" {
-  # The API container that holds routes, integrations, and stages.
-  # HTTP APIs are the simplest option for Lambda-backed endpoints.
-  name          = "${var.project_name}-${var.environment}-api"
-  protocol_type = "HTTP"
+resource "aws_api_gateway_rest_api" "api" {
+  # REST API container for resources, methods, and integrations.
+  name = "${var.project_name}-${var.environment}-api"
 }
 
-resource "aws_apigatewayv2_integration" "lambda" {
-  # Integration connects the API to the Lambda backend.
-  # AWS_PROXY forwards the full request to Lambda.
-  api_id             = aws_apigatewayv2_api.http_api.id
-  integration_type   = "AWS_PROXY"
-  integration_uri    = var.lambda_arn
-  integration_method = "POST"
+resource "aws_api_gateway_resource" "hello" {
+  # Create the /hello path under the API root.
+  rest_api_id = aws_api_gateway_rest_api.api.id
+  parent_id   = aws_api_gateway_rest_api.api.root_resource_id
+  path_part   = "hello"
 }
 
-resource "aws_apigatewayv2_route" "hello" {
-  # Route defines the HTTP method + path for the API.
-  # It points to the integration created above.
-  api_id    = aws_apigatewayv2_api.http_api.id
-  route_key = "GET /hello"
-  target    = "integrations/${aws_apigatewayv2_integration.lambda.id}"
+resource "aws_api_gateway_method" "hello_get" {
+  # Define the GET /hello method.
+  rest_api_id   = aws_api_gateway_rest_api.api.id
+  resource_id   = aws_api_gateway_resource.hello.id
+  http_method   = "GET"
+  authorization = "NONE"
 }
 
-resource "aws_apigatewayv2_stage" "default" {
-  # Stages publish routes so they are callable.
-  # $default avoids needing a stage name in the URL.
-  api_id      = aws_apigatewayv2_api.http_api.id
-  name        = "$default"
-  auto_deploy = true
+resource "aws_api_gateway_integration" "lambda" {
+  # Link the method to Lambda using proxy integration.
+  rest_api_id = aws_api_gateway_rest_api.api.id
+  resource_id = aws_api_gateway_resource.hello.id
+  http_method = aws_api_gateway_method.hello_get.http_method
+
+  integration_http_method = "POST"
+  type                    = "AWS_PROXY"
+  uri                     = var.lambda_arn
+}
+
+resource "aws_api_gateway_deployment" "api" {
+  # Deployment publishes the API configuration to a stage.
+  rest_api_id = aws_api_gateway_rest_api.api.id
+  stage_name  = var.stage_name
+
+  # Force a new deployment when the integration changes.
+  depends_on = [aws_api_gateway_integration.lambda]
 }
 
 resource "aws_lambda_permission" "api_invoke" {
-  # Lambda is locked down by default.
-  # This permission lets API Gateway invoke the function.
+  # Allow API Gateway to invoke the Lambda function.
   statement_id  = "AllowApiGatewayInvoke"
   action        = "lambda:InvokeFunction"
   function_name = var.lambda_arn
   principal     = "apigateway.amazonaws.com"
-  source_arn    = "${aws_apigatewayv2_api.http_api.execution_arn}/*/*"
+  source_arn    = "${aws_api_gateway_rest_api.api.execution_arn}/*/*"
 }

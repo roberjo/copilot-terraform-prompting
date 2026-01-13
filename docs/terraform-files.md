@@ -49,7 +49,7 @@ This guide explains the common Terraform file pieces you will see in this projec
 ### Resource + supporting resource
 Many AWS resources require a second resource for configuration. Examples:
 - `aws_s3_bucket` + `aws_s3_bucket_versioning`
-- `aws_apigatewayv2_api` + `aws_apigatewayv2_route` + `aws_apigatewayv2_integration`
+- `aws_api_gateway_rest_api` + `aws_api_gateway_resource` + `aws_api_gateway_method` + `aws_api_gateway_integration`
 
 ### IAM trust + permission
 IAM for Lambda typically needs two parts:
@@ -74,10 +74,11 @@ Terraform builds a graph from references. When one resource uses another (e.g., 
 - `aws_lambda_function`: Deploys the function using a local zip
 
 ### API Gateway example
-- `aws_apigatewayv2_api`: The API container
-- `aws_apigatewayv2_integration`: Links API -> Lambda
-- `aws_apigatewayv2_route`: Exposes an HTTP path
-- `aws_apigatewayv2_stage`: Publishes the API
+- `aws_api_gateway_rest_api`: The API container
+- `aws_api_gateway_resource`: Defines the path (e.g., /hello)
+- `aws_api_gateway_method`: Attaches an HTTP method
+- `aws_api_gateway_integration`: Links API -> Lambda
+- `aws_api_gateway_deployment`: Publishes the API to a stage
 - `aws_lambda_permission`: Lets API Gateway invoke Lambda
 
 ### Security group example
