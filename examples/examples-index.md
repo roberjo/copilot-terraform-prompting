@@ -7,5 +7,5 @@ Use these minimal examples to learn one resource at a time. Each folder contains
 - `examples/lambda/`: Lambda function using a local zip
 - `examples/api-gateway/`: HTTP API and Lambda integration
 - `examples/security-groups/`: Basic security group for HTTPS
-- `examples/route53-a-record/`: Simple A record in Route 53
+- `examples/route53-a-record/`: A record or alias for API Gateway custom domains
 - `examples/full-stack/`: End-to-end scaffold for the demo

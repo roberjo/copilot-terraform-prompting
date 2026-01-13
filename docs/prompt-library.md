@@ -93,17 +93,30 @@ Why it helps:
 - Introduces VPC-awareness in a safe, isolated way.
 - Prepares for ECS/RDS or VPC Lambda examples later.
 
-## 7) Route 53 A record
-**Goal:** Add a DNS record for a custom domain.
+## 7) Route 53 A record (standard)
+**Goal:** Add a simple A record for a custom domain.
 
 Prompt:
 """
 Create a Route 53 A record in an existing hosted zone.
-Use variables: hosted_zone_id and api_domain_name.
-Point the A record to the API Gateway custom domain target (if provided).
-If the target is not available, create the A record using a placeholder value and comment it clearly.
+Use variables: hosted_zone_id, record_name, record_value.
+Set TTL to 300.
 """
 
 Why it helps:
 - Explains how DNS ties into app endpoints.
-- Makes room for real-world custom domain setups.
+- Uses a simple IP-based example.
+
+## 8) Route 53 alias record (API Gateway custom domain)
+**Goal:** Add a Route 53 alias record for API Gateway custom domain.
+
+Prompt:
+"""
+Create a Route 53 alias A record in an existing hosted zone.
+Use variables: hosted_zone_id, record_name, alias_name, alias_zone_id.
+Use an alias block and disable evaluate_target_health.
+"""
+
+Why it helps:
+- Mirrors how API Gateway custom domains are typically wired.
+- Shows the difference between standard A records and alias records.
