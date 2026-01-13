@@ -10,6 +10,7 @@ This guide will be a short tutorial on using prompting in github copilot to gene
 - Architecture overview: `docs/architecture.md`
 - Prompt library: `docs/prompt-library.md`
 - Quick start: `docs/quick-start.md`
+- Terraform file guide: `docs/terraform-files.md`
 - Examples index: `examples/README.md`
 
 ## Step-by-step guide

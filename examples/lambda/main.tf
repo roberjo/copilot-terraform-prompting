@@ -11,18 +11,25 @@ terraform {
 }
 
 provider "aws" {
-  # Pick a default region so beginners can run quickly.
+  # Region is required so the provider knows where to create resources.
   region = "us-east-1"
 }
 
 resource "aws_lambda_function" "hello" {
-  # The function name uses project + environment for clarity.
+  # The Lambda function runs code in response to events.
+  # Name includes project + environment for clarity.
   function_name = "${var.project_name}-${var.environment}-hello"
-  role          = var.role_arn
-  handler       = "index.handler"
-  runtime       = "nodejs18.x"
 
-  # Zip-based deployment is the simplest way to start.
+  # Execution role defines what the function is allowed to do.
+  role = var.role_arn
+
+  # Handler is the file + function name inside the zip.
+  handler = "index.handler"
+
+  # Runtime tells Lambda how to execute the code.
+  runtime = "nodejs18.x"
+
+  # Zip-based deployment is the simplest approach for beginners.
   filename         = var.lambda_zip_path
   source_code_hash = filebase64sha256(var.lambda_zip_path)
 }

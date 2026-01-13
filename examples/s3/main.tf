@@ -11,14 +11,16 @@ terraform {
 }
 
 provider "aws" {
-  # Pick a default region so beginners can run quickly.
+  # Region is required so the provider knows where to create resources.
   region = "us-east-1"
 }
 
 resource "aws_s3_bucket" "assets" {
-  # The bucket name uses project + environment for clarity.
+  # The bucket is the storage container used by the app.
+  # Naming uses project + environment to avoid collisions.
   bucket = "${var.project_name}-${var.environment}-assets"
 
+  # Tags help track cost and ownership in AWS.
   tags = {
     Project     = var.project_name
     Environment = var.environment
@@ -26,7 +28,8 @@ resource "aws_s3_bucket" "assets" {
 }
 
 resource "aws_s3_bucket_versioning" "assets" {
-  # Versioning protects against accidental deletes or overwrites.
+  # Versioning is configured separately from the bucket resource.
+  # It protects against accidental deletes or overwrites.
   bucket = aws_s3_bucket.assets.id
 
   versioning_configuration {

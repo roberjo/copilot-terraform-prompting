@@ -11,7 +11,7 @@ terraform {
 }
 
 provider "aws" {
-  # Pick a default region so beginners can run quickly.
+  # Region is required so the provider knows where to create resources.
   region = "us-east-1"
 }
 
@@ -22,6 +22,7 @@ resource "aws_security_group" "app" {
   vpc_id      = var.vpc_id
 
   ingress {
+    # Allow inbound HTTPS traffic from the internet.
     description = "Allow HTTPS"
     from_port   = 443
     to_port     = 443

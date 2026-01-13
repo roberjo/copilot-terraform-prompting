@@ -11,12 +11,13 @@ terraform {
 }
 
 provider "aws" {
-  # Pick a default region so beginners can run quickly.
+  # Route 53 is a global service, but the provider still needs a region.
   region = "us-east-1"
 }
 
 resource "aws_route53_record" "a_record" {
-  # Standard A record that points to an IPv4 address.
+  # Standard A record pointing to an IPv4 address.
+  # Used when you have a direct IP target.
   count   = var.use_alias ? 0 : 1
   zone_id = var.hosted_zone_id
   name    = var.record_name
@@ -27,7 +28,8 @@ resource "aws_route53_record" "a_record" {
 }
 
 resource "aws_route53_record" "alias_record" {
-  # Alias A record for AWS targets like API Gateway custom domains.
+  # Alias record for AWS targets like API Gateway custom domains.
+  # Alias records use a DNS name + hosted zone ID, not an IP.
   count   = var.use_alias ? 1 : 0
   zone_id = var.hosted_zone_id
   name    = var.record_name

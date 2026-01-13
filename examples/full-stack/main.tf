@@ -24,7 +24,8 @@ provider "aws" {
 }
 
 resource "aws_s3_bucket" "assets" {
-  # The bucket name uses project + environment for clarity.
+  # The bucket is the storage container used by the app.
+  # Naming uses project + environment to avoid collisions.
   bucket = "${var.project_name}-${var.environment}-assets"
 
   tags = {
@@ -43,7 +44,7 @@ resource "aws_s3_bucket_versioning" "assets" {
 }
 
 data "aws_iam_policy_document" "assume_lambda" {
-  # This trust policy allows the Lambda service to assume the role.
+  # Trust policy: allows the Lambda service to assume this role.
   statement {
     actions = ["sts:AssumeRole"]
 
@@ -55,13 +56,13 @@ data "aws_iam_policy_document" "assume_lambda" {
 }
 
 resource "aws_iam_role" "lambda" {
-  # The execution role is required for every Lambda function.
+  # Execution role for Lambda functions.
   name               = "${var.project_name}-${var.environment}-lambda-role"
   assume_role_policy = data.aws_iam_policy_document.assume_lambda.json
 }
 
 resource "aws_iam_policy" "lambda_access" {
-  # Least-privilege policy for logs and S3 access.
+  # Permission policy: allows logs and S3 access.
   name = "${var.project_name}-${var.environment}-lambda-policy"
 
   policy = jsonencode({
@@ -93,7 +94,7 @@ resource "aws_iam_policy" "lambda_access" {
 }
 
 resource "aws_iam_role_policy_attachment" "lambda_access" {
-  # Attach the policy to the role so Lambda can use it.
+  # Attach the policy so the role can use it.
   role       = aws_iam_role.lambda.name
   policy_arn = aws_iam_policy.lambda_access.arn
 }
@@ -110,13 +111,13 @@ resource "aws_lambda_function" "hello" {
 }
 
 resource "aws_apigatewayv2_api" "http_api" {
-  # HTTP APIs are the simplest option for Lambda-backed endpoints.
+  # HTTP API container for routes and integrations.
   name          = "${var.project_name}-${var.environment}-api"
   protocol_type = "HTTP"
 }
 
 resource "aws_apigatewayv2_integration" "lambda" {
-  # Connect the API to the Lambda function using AWS_PROXY.
+  # Connect API Gateway to Lambda.
   api_id             = aws_apigatewayv2_api.http_api.id
   integration_type   = "AWS_PROXY"
   integration_uri    = aws_lambda_function.hello.arn
@@ -124,14 +125,14 @@ resource "aws_apigatewayv2_integration" "lambda" {
 }
 
 resource "aws_apigatewayv2_route" "hello" {
-  # A route maps an HTTP method + path to the integration.
+  # Route exposes GET /hello to clients.
   api_id    = aws_apigatewayv2_api.http_api.id
   route_key = "GET /hello"
   target    = "integrations/${aws_apigatewayv2_integration.lambda.id}"
 }
 
 resource "aws_apigatewayv2_stage" "default" {
-  # $default allows requests without specifying a stage name.
+  # $default stage publishes the API without a stage name in the URL.
   api_id      = aws_apigatewayv2_api.http_api.id
   name        = "$default"
   auto_deploy = true

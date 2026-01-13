@@ -11,12 +11,13 @@ terraform {
 }
 
 provider "aws" {
-  # Pick a default region so beginners can run quickly.
+  # Region is required so the provider knows where to create resources.
   region = "us-east-1"
 }
 
 data "aws_iam_policy_document" "assume_lambda" {
-  # This trust policy allows the Lambda service to assume the role.
+  # Trust policy: allows the Lambda service to assume this role.
+  # Without this, Lambda cannot use the role.
   statement {
     actions = ["sts:AssumeRole"]
 
@@ -28,13 +29,15 @@ data "aws_iam_policy_document" "assume_lambda" {
 }
 
 resource "aws_iam_role" "lambda" {
-  # The execution role is required for every Lambda function.
+  # Execution role for Lambda functions.
+  # The role is required for Lambda to access other AWS services.
   name               = "${var.project_name}-${var.environment}-lambda-role"
   assume_role_policy = data.aws_iam_policy_document.assume_lambda.json
 }
 
 resource "aws_iam_policy" "lambda_access" {
-  # Least-privilege policy for logs and S3 access.
+  # Permission policy: defines what the role can do.
+  # This example allows CloudWatch Logs and S3 access only.
   name = "${var.project_name}-${var.environment}-lambda-policy"
 
   policy = jsonencode({
@@ -66,7 +69,8 @@ resource "aws_iam_policy" "lambda_access" {
 }
 
 resource "aws_iam_role_policy_attachment" "lambda_access" {
-  # Attach the policy to the role so Lambda can use it.
+  # Attach the permission policy to the execution role.
+  # Lambda needs the policy attached to inherit permissions.
   role       = aws_iam_role.lambda.name
   policy_arn = aws_iam_policy.lambda_access.arn
 }
