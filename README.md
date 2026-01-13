@@ -1,2 +1,36 @@
 # copilot-terraform-prompting
-Prompting guide for github copilot to create terraform resources
+Prompting guide for github copilot to create terraform resources.
+
+This guide will be a short tutorial on using prompting in github copilot to generate AWS resources in VSCode with the required terraform cloud IaC files.
+
+## Meeting kit
+- Agenda: `docs/agenda.md`
+- Demo flow: `docs/demo-flow.md`
+- Architecture overview: `docs/architecture.md`
+- Prompt library: `docs/prompt-library.md`
+- Examples index: `examples/README.md`
+
+The guide should assume the users are new to the concepts of AWS resources, new to Terraform Cloud IaC, and prefer to use ASP.NET, Python, or Node.js for backend resources, and React or Next.js (Vite) for frontend apps.
+
+## Prerequisites
+- AWS account with permissions to create the in-scope resources
+- Terraform Cloud organization and a workspace
+- VS Code with GitHub Copilot enabled
+- AWS CLI configured locally (for testing and validation)
+
+## Assumptions
+- A single AWS account and region are used for the walkthrough
+- Terraform Cloud runs are VCS-driven (workspace linked to a repo)
+- Terraform state is stored in Terraform Cloud workspaces for deployments, with an optional local state example for educational use
+- DNS is managed in an existing Route 53 hosted zone
+
+## AWS resources in scope
+- Lambda
+- S3
+- API Gateway
+- IAM
+- Security Groups
+- Route 53 DNS A records
+
+## Prompt library
+See `docs/prompt-library.md` for beginner-friendly prompts with explanations.
