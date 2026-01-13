@@ -42,6 +42,47 @@ resource "aws_api_gateway_base_path_mapping" "api" {
 }
 ```
 
+## Diagrams
+
+### Stage layout (REST API)
+
+```
+Custom Domain: api.example.com
+            |
+            v
+  +----------------------+
+  | Base Path Mapping    |
+  | base_path = ""       |
+  | stage = blue         |
+  +----------+-----------+
+             |
+             v
+     +---------------+
+     | REST API      |
+     | Stage: blue   |
+     +---------------+
+             |
+             v
+          Lambda
+```
+
+### Blue/green switch (base path mapping)
+
+```
+Before switch: base path -> blue
+api.example.com  ----->  stage: blue
+
+After switch: base path -> green
+api.example.com  ----->  stage: green
+```
+
+### Parallel testing (invoke URLs)
+
+```
+Blue stage:  https://{api_id}.execute-api.{region}.amazonaws.com/blue
+Green stage: https://{api_id}.execute-api.{region}.amazonaws.com/green
+```
+
 ## How to use it
 1) Deploy the API to both stages.
 2) Test the green stage using its invoke URL.
