@@ -55,6 +55,7 @@ The guide should assume the users are new to the concepts of AWS resources, new 
 - A stage is a named snapshot of your REST API deployment (e.g., `dev`, `prod`).
 - REST APIs are callable only after a deployment publishes them to a stage.
 - Stage names appear in the invoke URL, making environments easy to distinguish.
+See `docs/api-gateway-blue-green.md` for a blue/green example using stages.
 
 ## Prompt library
 See `docs/prompt-library.md` for beginner-friendly prompts with explanations.
